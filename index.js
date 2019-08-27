@@ -81,14 +81,19 @@ controller.on('rtm_close', function (bot) {
  */
 // BEGIN EDITING HERE!
 
-controller.on('bot_channel_join', function (bot, message) {
-    bot.reply(message, "I'm here!")
+/**
+controller.hears(['.*', '', '\\A\\z', '^$', 'bot_message'], ['message_received','direct_message','direct_mention','mention','ambient','bot_message'], async function (bot, message) {
+    console.log(message);
+    if(message.channel === 'CCS2RT0JJ')
+        await bot.api.reactions.add({name:'scream', timestamp: message.ts, channel: message.channel});
 });
-
-controller.hears('hello', 'direct_message', function (bot, message) {
-    bot.reply(message, 'Hello!');
+*/
+controller.on('bot_message', function (bot, message) {
+    console.log('bot_msg', message);
+    //if(message.user === 'DKBP41PDK' && message.channel === 'CCS2RT0JJ')
+    if(message.channel === 'CCS2RT0JJ')
+        bot.api.reactions.add({name:'scream', timestamp: message.ts, channel: message.channel});
 });
-
 
 /**
  * AN example of what could be:
